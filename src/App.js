@@ -1,54 +1,59 @@
 import './App.css';
+import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 
-function Saudacoes(props){
-  return(
-    <p>
-      Bom dia {props.nome}!!! Você tem {props.idade} anos
-    </p>
-  );
-}
+const BotaoPrincipal = styled.button`
+  background: ${props => props.cor || 'transparent'};
+  border-radius: 3px;
+  border: 2px solid palevioletred;
+  color: palevioletred;
+  margin: 0 1em;
+  padding: 0.25em 1em;
+`;
 
-function Imprimir(props){
-  return(
-    <div>
-      <p>Cabecalho:</p>
-      {props.children}
-    </div>
-  )
-}
+const CampodeEntrada = styled.input``;
+
 
 function App() {
 
-  const idade = 18;
-  const endereco = {
-                    cidade: 'Formiga',
-                    estado: 'MG'
-                   };
-  
+  const [conta, setConta] = useState(0);
+  const [gorjeta, setGorjeta] = useState(0);
+  const [lista, setLista] = useState([]);
+
+  function carregar(){
+    console.log('Carregando a página')
+    setLista(["Diego", "Laura", "Cleitinho"]);
+  }
+
+  useEffect(carregar, []);
+
+  useEffect( () => {
+    console.log(conta);
+  },[conta]);
 
   return (
     <div className="App">
-        <p>
-          -------------Training-------------
-        </p>
-        <p>
-          {idade}
-        </p>
-        <p>
-          {endereco.cidade} / {endereco.estado}
-        </p>
-        <img src={"https://www.google.com/google.jpg"} alt="img google"></img>
+       
+        <p>Entre com o valor da conta</p>
+        <CampodeEntrada value={conta} onChange={(e) => setConta(parseFloat(e.target.value) )}/>
+        <p>Entre com o valor da gorjeta</p>
+        <CampodeEntrada value={gorjeta} onChange={(e) => setGorjeta(parseFloat(e.target.value) )}/>
 
-        <Saudacoes nome={"Bruno"} idade={18}/>
-        <Saudacoes nome={"Diego"} idade={16}/>
-        <Saudacoes nome={"Messias"} idade={30}/>
+        { conta > 0 && gorjeta > 0 && 
+            <div>
+              <p>Sub-total: R$ {conta} </p>
+              <p>Gorjeta: R$ {gorjeta/100 * conta} </p>
+              <p>Total: R$ {(gorjeta*100) + conta} </p>
+            </div>
+        }
 
-        <Imprimir>
-          <div style={ {color: '#000', fontWeight: 'bold'}}>
-            <h1>IFMG</h1>
-            <h2>Campus Formiga</h2>
-          </div>
-        </Imprimir>
+        <hr/>
+        <ul>
+
+          {lista.map((valor, indice) => (<li key={indice}>{valor}</li>))}
+
+        </ul>
+
     </div>
   );
 }

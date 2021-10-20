@@ -1,9 +1,8 @@
 .App {
   text-align: center;
-  background: rgb(2,0,36);
-  background: linear-gradient(347deg, rgba(2,0,36,1) 0%, rgba(71,71,255,1) 35%, rgba(0,212,255,1) 100%);
+  background: rgb(229, 248, 248);
   min-height: 100vh;
-  color: azure;
+  color: rgb(56, 49, 49);
 }
 
 
